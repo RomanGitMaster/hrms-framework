@@ -74,4 +74,13 @@ public class LoginSteps extends BaseClass {
         Assert.assertTrue(dashPage.dashTopBarHeader.isDisplayed());
     }
 
+
+    @Given("user is logged in with valid credentials")
+    public void user_is_logged_in_with_valid_credentials() {
+        sendText(loginPage.userInput, ConfigReader.read("username"));
+        sendText(loginPage.passInput, ConfigReader.read("password"));
+        click(loginPage.loginBtn);
+        Assert.assertTrue(dashPage.dashTopBarHeader.isDisplayed());
+    }
+
 }

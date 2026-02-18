@@ -86,8 +86,8 @@ public class BaseClass extends PageInitializer {
 
     public void waitForFormLoader(By locator) {
         try {
-            getWait().until(ExpectedConditions.presenceOfElementLocated(locator));// usually is enough
-            //wait.until(ExpectedConditions.invisibilityOfElementLocated(locator)); (sometimes not needed) takes a bit of time
+            getWait().until(ExpectedConditions.presenceOfElementLocated(locator));
+            // getWait().until(ExpectedConditions.invisibilityOfElementLocated(locator));
         } catch (TimeoutException e) {
             // If it never appeared (or appeared too quickly), we just continue
         }
@@ -113,6 +113,14 @@ public class BaseClass extends PageInitializer {
             }
         }
         throw new RuntimeException("Stale element after " + attempts + " retries (sendText) " + locator);
+    }
+
+    public void clearAndType(WebElement el, String text) {
+        waitClickable(el).click();
+        el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        el.sendKeys(Keys.DELETE);
+
+        el.sendKeys(text);
     }
 
     //CUSTOM CLICK

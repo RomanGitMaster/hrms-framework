@@ -1,7 +1,7 @@
-Feature: Login features
+Feature: Login Validation for HRMs Portal
 
   Background:
-  #  Given user is on the login page of HRMS
+   Given user is on the login page of HRMS
 
   @smoke
   Scenario: empty username field shows Required error message

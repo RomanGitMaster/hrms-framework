@@ -10,8 +10,8 @@ import org.junit.runner.RunWith;
         glue = "steps",
         monochrome = true,
         dryRun = false,
-        tags = "@smoke",
-        plugin = {"pretty","html:target/cucumber.html", "json:target/cucumber.json"}
+        tags = "@regression",
+        plugin = {"pretty", "html:target/cucumber.html", "json:target/cucumber.json", "rerun:target.failed.txt"}
 )
 
 public class Runner {

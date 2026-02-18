@@ -17,7 +17,7 @@ public class ExcelReader {
     public static DataFormatter formatter = new DataFormatter();
 
 
-    public static List<Map<String, String>> readExcelAsListOfMaps(String path, String sheetName)  {
+    public static List<Map<String, String>> readExcelAsListOfMaps(String path, String sheetName) {
         List<Map<String, String>> excelData = new ArrayList<>();
 
         try (InputStream is = new FileInputStream(path);
