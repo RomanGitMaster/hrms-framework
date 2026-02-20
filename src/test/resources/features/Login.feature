@@ -1,17 +1,17 @@
 Feature: Login Validation for HRMs Portal
 
   Background:
-   Given user is on the login page of HRMS
+    Given user is on the login page of HRMS
 
   @smoke
-  Scenario: empty username field shows Required error message
-    When user enters no username "" and password "HRM123"
-    Then username field error message "Required" will be displayed
+  Scenario Outline: empty username or password show Required error message
+    When user enters username "<username>" and password "<password>"
+    Then user is prompted with error "<errorMsg>"
+    Examples:
+      | username | password | errorMsg |
+      |          | pass123  | Required |
+      | 123_user |          | Required |
 
-  @smoke
-  Scenario: empty password field shows Required error message
-    When user enters username "user123" and no password ""
-    Then password field errors message "Required" will be displayed
 
   @smoke
   Scenario Outline: login fails if either  username or password is incorrect

@@ -13,6 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 public class EmployeeInfoPage extends BaseClass {
+    By rowLocator = By.xpath("//div[@class='oxd-table-card']");
+
+    By cbLocator = By.xpath("//div[@class='oxd-table-card']/div//div[contains(@class,'oxd-table-card-cell-checkbox')]");
+
+    By recordFound = By.xpath("//span[contains(.,'Record Found')]");
 
     @FindBy(xpath = "//form[@class='oxd-form']//input[contains(@class,'oxd-input')]")
     public WebElement empIdSearchfield;
@@ -37,10 +42,6 @@ public class EmployeeInfoPage extends BaseClass {
         String expectedId = map.get("empId");
         expEmp = map.get("empId") + " " + map.get("firstName") + " " + map.get("middleName") + " " + map.get("lastName");
         System.out.println("Expected employee: " + expEmp);
-
-        By rowLocator = By.xpath("//div[@class='oxd-table-card']");
-        By cbLocator = By.xpath("//div[@class='oxd-table-card']/div//div[contains(@class,'oxd-table-card-cell-checkbox')]");
-        By recordFound = By.xpath("//span[contains(.,'Record Found')]");
 
         getWait().until(ExpectedConditions.textToBePresentInElementLocated(recordFound, "(1) Record Found"));
         WebElement empRow = driver.findElement(rowLocator);

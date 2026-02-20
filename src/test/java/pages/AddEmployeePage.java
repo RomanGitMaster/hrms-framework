@@ -8,7 +8,9 @@ import utils.BaseClass;
 
 public class AddEmployeePage extends BaseClass {
 
-    public By formLoaderLocator= By.cssSelector("div.oxd-form-loader");
+    public By formLoaderLocator = By.cssSelector("div.oxd-form-loader");
+
+    public By missingFieldErrorMsg = By.xpath("//span[text()='Required']");
 
     @FindBy(xpath = "//input[@name='firstName']")
     public WebElement firstNameField;
@@ -29,4 +31,10 @@ public class AddEmployeePage extends BaseClass {
     public AddEmployeePage() {
         PageFactory.initElements(driver, this);
     }
+
+
+    public String getErrorMsg(By locator) {
+        return driver.findElement(locator).getText();
+    }
 }
+

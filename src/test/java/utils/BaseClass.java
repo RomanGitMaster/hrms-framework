@@ -1,5 +1,6 @@
 package utils;
 
+import io.cucumber.java.Scenario;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,7 +18,7 @@ import java.util.Date;
 
 
 public class BaseClass extends PageInitializer {
-
+    protected static Scenario scenario;
     public static WebDriver driver;
 
 
@@ -93,6 +94,7 @@ public class BaseClass extends PageInitializer {
         }
     }
 
+
     //SEND TEXT HELPERS
     public void sendText(WebElement element, String text) {
         WebElement el = waitVisible(element);
@@ -122,6 +124,19 @@ public class BaseClass extends PageInitializer {
 
         el.sendKeys(text);
     }
+
+    public void typeIfNotEmpty(WebElement element, String value) {
+        if (value != null && !value.isEmpty()) {
+            sendText(element, value);
+        }
+    }
+
+    public void clearField(WebElement el) {
+        waitClickable(el).click();
+        el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        el.sendKeys(Keys.DELETE);
+    }
+
 
     //CUSTOM CLICK
     public void click(WebElement el) {
@@ -158,6 +173,7 @@ public class BaseClass extends PageInitializer {
         sel.selectByIndex(index);
     }
 
+
     //JAVASCRIPT EXECUTOR
     public JavascriptExecutor getJSExecutor() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -167,6 +183,7 @@ public class BaseClass extends PageInitializer {
     public void jsClick(WebElement element) {
         getJSExecutor().executeScript("arguments[0].click();", element);
     }
+
 
     //SCREENSHOT
     public byte[] takeScreenshot(String fileName) {
@@ -185,6 +202,13 @@ public class BaseClass extends PageInitializer {
         }
         return picByte;
     }
+
+    public void scenarioScreenshot() {
+        String safeName = scenario.getName().replaceAll("[^a-zA-Z0-9-_]", "_");
+        byte[] pic = takeScreenshot(safeName);
+        scenario.attach(pic, "image/png", safeName);
+    }
+
 
     //TIMESTAMP
     public String getTimeStamp(String pattern) {

@@ -11,6 +11,7 @@ public class Hooks extends BaseClass {
     //pre condition
     @Before
     public void start(Scenario scenario) {
+        BaseClass.scenario = scenario;
         System.out.println("Starting Test: " + scenario.getName());
         openBrowser();
     }
@@ -31,7 +32,7 @@ public class Hooks extends BaseClass {
 
         }
         scenario.attach(pic, "image/png", scenario.getName());
-        closeBrowser();
+          closeBrowser();
     }
 
 }

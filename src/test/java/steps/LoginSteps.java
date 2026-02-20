@@ -13,40 +13,21 @@ public class LoginSteps extends BaseClass {
 
     @Given("user is on the login page of HRMS")
     public void user_is_on_the_login_page_of_hrms() {
-        System.out.println(driver.getTitle());
-    }
-
-    @When("user enters no username {string} and password {string}")
-    public void user_enters_no_username_and_password(String noUserInput, String password) {
-        sendText(loginPage.userInput, noUserInput);
-        sendText(loginPage.passInput, password);
-        click(loginPage.loginBtn);
-    }
-
-    @Then("username field error message {string} will be displayed")
-    public void username_field_error_message_will_be_displayed(String expected) {
-        Assert.assertEquals(expected, loginPage.getErrorMsg(loginPage.emptyFieldError));
-    }
-
-
-    @When("user enters username {string} and no password {string}")
-    public void user_enters_username_and_no_password(String username, String noPassword) {
-        sendText(loginPage.userInput, username);
-        sendText(loginPage.passInput, noPassword);
-        click(loginPage.loginBtn);
-    }
-
-    @Then("password field errors message {string} will be displayed")
-    public void password_field_errors_message_will_be_displayed(String expected) {
-        Assert.assertEquals(expected, loginPage.getErrorMsg(loginPage.emptyFieldError));
+        String expectedTitle = "SyntaxHRM";
+        Assert.assertEquals(expectedTitle, driver.getTitle());
     }
 
 
     @When("user enters username {string} and password {string}")
     public void user_enters_username_and_password(String username, String password) {
-        sendText(loginPage.userInput, username);
-        sendText(loginPage.passInput, password);
+        typeIfNotEmpty(loginPage.userInput, username);
+        typeIfNotEmpty(loginPage.passInput, password);
         click(loginPage.loginBtn);
+    }
+
+    @Then("user is prompted with error {string}")
+    public void user_is_prompted_with_error(String expected) {
+        Assert.assertEquals(expected, loginPage.getErrorMsg(loginPage.requiredError));
     }
 
     @Then("user is prompted with {string} message")
